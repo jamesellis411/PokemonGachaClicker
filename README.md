@@ -1,4 +1,4 @@
-# 🐉 Pokémon Trading Simulator (Pokémon Clicker)
+# 🐉 Pokémon Clicker Simulator
 
 A **Java + JavaFX desktop game** inspired by Pokémon — a clicker-style app where players earn coins, buy Pokémon, and build their collection.
 
@@ -40,7 +40,7 @@ This project demonstrates:
 
 ## 🧭 Coming Soon
 
-Exciting new features are in development to take **Pokémon Trading Simulator** to the next level!  
+Exciting new features are in development to take **Pokémon Clicker Simulator** to the next level!  
 These updates will make the game more visual, interactive, and rewarding for players.
 
 ### 🏪 Shop & Upgrades
