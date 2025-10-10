@@ -1,6 +1,7 @@
-# 🐉 Pokémon Clicker Simulator
+# 🎰 PokéGacha — The Pokémon Capsule Clicker
 
-A **Java + JavaFX desktop game** inspired by Pokémon — a clicker-style app where players earn coins, buy Pokémon, and build their collection.
+A **Java + JavaFX desktop game** inspired by Pokémon and the **gachapon capsule machines** of Japan.  
+Players earn coins, spin for random Pokémon, and build their collection — capturing the excitement of opening a gachapon capsule with every click.
 
 This project demonstrates:
 - Object-Oriented Programming (OOP)
@@ -11,57 +12,37 @@ This project demonstrates:
 
 ---
 
-## 🖥️ Features
+## 🎰 Inspiration
 
-✅ **Clicker Gameplay**  
-- Click “💰 Click for Coins” to earn currency  
-- Spend 100 coins to buy a random Pokémon (chance for a ✨ *shiny* Pokémon)
+PokéGacha was inspired by the **gachapon machines** found throughout Japan — small vending machines that dispense collectible toys in random capsules.  
 
-✅ **Persistent Save System**  
-- Local save files store coins and Pokémon  
-- Automatically saves on exit and reloads next session
+After visiting Japan and rediscovering a love for Pokémon, I wanted to recreate that same feeling digitally:  
+the sound of a coin drop, the twist of the dial, and the surprise of seeing which Pokémon pops out of the capsule.  
 
-✅ **Password-Protected Accounts**  
-- One account per username  
-- Passwords hashed for security
-
-✅ **JavaFX GUI**  
-- Modern interface with live updates  
-- Styled layout and gradient background  
-- GPU-accelerated via Apple Metal on macOS
-
----
-
-## 📸 Preview
-
-<img width="400" height="489" alt="Screenshot 2025-10-09 at 11 30 34 PM" src="https://github.com/user-attachments/assets/6cf0c633-a3f3-4156-bb52-6bb312b099a6" />
+PokéGacha brings that joy to life as a clicker game — earn coins, spin for Pokémon, and grow your capsule collection one click at a time.
 
 ---
 
 ## 🧭 Coming Soon
 
-Exciting new features are in development to take **Pokémon Clicker Simulator** to the next level!  
-These updates will make the game more visual, interactive, and rewarding for players.
+New features are in development to make **PokéGacha** feel even more like a real gachapon machine experience!  
 
-### 🏪 Shop & Upgrades
-A new **in-game shop** where players can spend coins on special upgrades:
+### 🏪 Capsule Shop & Upgrades
+A new **capsule shop** will let players buy upgrades to enhance their gachapon spins:
 - Training Gloves → earn more coins per click  
-- Lucky Charm → boost shiny Pokémon odds  
-- Pokédex Plus → unlock new viewing modes  
-- Other future gameplay bonuses and effects  
+- Lucky Charm → increase shiny Pokémon odds  
+- Pokédex Plus → unlock new capsule designs and viewing modes  
+- Premium Capsules → higher rarity Pokémon chances  
 
 ### 🧩 Pokémon Sprites
-Visual Pokémon icons for every catch!  
-Each Pokémon you obtain will appear with a sprite — shiny variants will include ✨ unique effects or colors.
+Every Pokémon you collect will appear as a **capsule image** when pulled from the machine.  
+Shiny variants will include ✨ special color overlays or glowing effects.
 
 ### 🔊 Sound Effects
-Audio feedback for clicks, purchases, and Pokémon catches.  
-Expect cheerful sounds and nostalgic vibes as you play!
+Authentic **gachapon-inspired sounds** for clicks, capsule drops, and Pokémon reveals — bringing the toy machine feel to life!
 
 ### 📘 Pokédex View
-A dedicated **Pokédex screen** displaying all Pokémon you’ve collected:  
+A sleek **Pokédex-style capsule collection** where you can view all your caught Pokémon:
 - Names, levels, and shiny status  
-- Organized in a clean grid layout  
-- Search and filter options planned for later updates  
-
----
+- Capsule display grid with rarity colors  
+- Search and filter tools to track your collection progress  
