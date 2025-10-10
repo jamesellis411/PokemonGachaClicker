@@ -4,41 +4,48 @@ import model.Pokemon;
 import model.User;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SaveManager {
-    private static final String SAVE_FILE = "save.txt";
 
-    // 💾 Save user data to file
+    // 💾 Save user data
     public static void saveUser(User user) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(SAVE_FILE))) {
+        String fileName = user.getUsername() + "_save.txt";
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
             writer.println(user.getUsername());
+            writer.println(user.getPasswordHash());
             writer.println(user.getBalance());
             for (Pokemon p : user.getInventory()) {
-                // Format: name,type,level,shiny
                 writer.printf("%s,%s,%d,%b%n", p.getName(), p.getType(), p.getLevel(), p.isShiny());
             }
-            System.out.println("✅ Game saved successfully!");
+            System.out.println("✅ Saved progress for " + user.getUsername() + "!");
         } catch (IOException e) {
             System.out.println("❌ Error saving game: " + e.getMessage());
         }
     }
 
-    // 📂 Load user data from file
-    public static User loadUser() {
-        File file = new File(SAVE_FILE);
+    // 📂 Load user data (with password verification)
+    public static User loadUser(String username, String inputPassword) {
+        String fileName = username + "_save.txt";
+        File file = new File(fileName);
+
         if (!file.exists()) {
-            System.out.println("No previous save found — starting a new game!");
-            return new User("Ash", "hashedpassword123");
+            System.out.println("🆕 No save found for '" + username + "'. Creating a new account...");
+            return null; // Signal to create a new user
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String username = reader.readLine();
-            int balance = Integer.parseInt(reader.readLine());
+            String savedUsername = reader.readLine();
+            String savedPasswordHash = reader.readLine();
+            String balanceLine = reader.readLine();
+            int balance = 0;
+            try {
+                balance = Integer.parseInt(balanceLine);
+            } catch (NumberFormatException e) {
+                System.out.println("⚠️ Save file is malformed — resetting balance to 0.");
+            }
 
-            User user = new User(username, "hashedpassword123");
-            user.addCoins(balance); // set starting balance
+            User user = new User(savedUsername, savedPasswordHash);
+            user.addCoins(balance);
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -52,11 +59,18 @@ public class SaveManager {
                 }
             }
 
-            System.out.println("✅ Save data loaded!");
+            // Check password
+            if (!savedPasswordHash.equals(inputPassword)) {
+                System.out.println("❌ Incorrect password for user: " + username);
+                return null;
+            }
+
+            System.out.println("✅ Login successful! Loaded save for " + username + ".");
             return user;
+
         } catch (IOException e) {
-            System.out.println("❌ Error loading save: " + e.getMessage());
-            return new User("Ash", "hashedpassword123");
+            System.out.println("❌ Error loading save for " + username + ": " + e.getMessage());
+            return null;
         }
     }
 }

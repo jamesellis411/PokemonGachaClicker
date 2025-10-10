@@ -1,2 +1,5 @@
 Ash
-3
+default
+100
+Pikachu,Electric,49,false
+Charmander,Fire,12,false
