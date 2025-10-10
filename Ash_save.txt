@@ -1,0 +1,5 @@
+Ash
+default
+1
+Gastly,Grass,45,false
+
