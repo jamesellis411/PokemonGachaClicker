@@ -35,3 +35,33 @@ This project demonstrates:
 ## 📸 Preview
 
 <img width="400" height="489" alt="Screenshot 2025-10-09 at 11 30 34 PM" src="https://github.com/user-attachments/assets/6cf0c633-a3f3-4156-bb52-6bb312b099a6" />
+
+---
+
+## 🧭 Coming Soon
+
+Exciting new features are in development to take **Pokémon Trading Simulator** to the next level!  
+These updates will make the game more visual, interactive, and rewarding for players.
+
+### 🏪 Shop & Upgrades
+A new **in-game shop** where players can spend coins on special upgrades:
+- Training Gloves → earn more coins per click  
+- Lucky Charm → boost shiny Pokémon odds  
+- Pokédex Plus → unlock new viewing modes  
+- Other future gameplay bonuses and effects  
+
+### 🧩 Pokémon Sprites
+Visual Pokémon icons for every catch!  
+Each Pokémon you obtain will appear with a sprite — shiny variants will include ✨ unique effects or colors.
+
+### 🔊 Sound Effects
+Audio feedback for clicks, purchases, and Pokémon catches.  
+Expect cheerful sounds and nostalgic vibes as you play!
+
+### 📘 Pokédex View
+A dedicated **Pokédex screen** displaying all Pokémon you’ve collected:  
+- Names, levels, and shiny status  
+- Organized in a clean grid layout  
+- Search and filter options planned for later updates  
+
+---
