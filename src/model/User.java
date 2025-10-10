@@ -9,6 +9,10 @@ public class User {
     private List<Pokemon> inventory;
     private int balance;
 
+    private int clickPower = 1;
+    private double shinyBoost = 1.0;
+    private boolean hasShinyCharm = false;
+
 
     public User (String username, String passwordHash) {
         this.username = username;
@@ -30,6 +34,12 @@ public class User {
     public int getBalance() {
         return balance;
     }
+    public int getClickPower() {
+        return clickPower;
+    }
+    public double getShinyBoost() {
+        return shinyBoost;
+    }
 
     public void addPokemon(Pokemon pokemon) {
         inventory.add(pokemon);
@@ -37,6 +47,19 @@ public class User {
 
     public void addCoins(int amount) {
         balance += amount;
+    }
+
+    public void increaseClickPower() {
+        clickPower++;
+    }
+
+    public boolean hasShinyCharm() {
+        return hasShinyCharm;
+    }
+
+    public void buyShinyCharm() {
+        hasShinyCharm = true;
+        shinyBoost = 1.5;
     }
 
     public boolean spendCoins(int amount) {
@@ -57,6 +80,7 @@ public class User {
             System.out.println((i + 1) + ". " + inventory.get(i));
         }
     }
+
 }
 
 

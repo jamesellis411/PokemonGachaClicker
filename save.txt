@@ -1,5 +1,7 @@
 Ash
 default
-100
-Pikachu,Electric,49,false
-Charmander,Fire,12,false
+5
+1
+false
+1.0
+Abra,Psychic,27,false
