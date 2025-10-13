@@ -18,6 +18,7 @@ import model.Pokemon;
 import model.User;
 import service.PokemonGenerator;
 import service.SaveManager;
+import service.SoundManager;
 
 public class ClickerApp extends Application {
 
@@ -100,16 +101,18 @@ public class ClickerApp extends Application {
     }
 
     private void handleClick() {
+        SoundManager.playClick();
         user.addCoins(user.getClickPower());
         balanceLabel.setText("Coins: " + user.getBalance());
     }
 
     private void handleBuy() {
         if (user.spendCoins(100)) {
+            SoundManager.playCapsule();
             Pokemon newMon = PokemonGenerator.generateRandomPokemon();
 
             try {
-                // ✨ Determine correct image file
+                // Determine correct image file
                 String imageFile = newMon.isShiny()
                         ? newMon.getName().toLowerCase() + "_shiny.png"
                         : newMon.getName().toLowerCase() + ".png";
@@ -120,7 +123,7 @@ public class ClickerApp extends Application {
                 Image image = new Image(getClass().getResource(imagePath).toExternalForm());
                 pokemonImage.setImage(image);
 
-                // ✨ Fade-in animation when new Pokémon appears
+                // Fade-in animation when new Pokémon appears
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(600), pokemonImage);
                 fadeIn.setFromValue(0);
                 fadeIn.setToValue(1);
@@ -138,6 +141,7 @@ public class ClickerApp extends Application {
             showAlert("You got a new Pokémon!", newMon.toString());
 
             if (newMon.isShiny()) {
+                SoundManager.playShiny();
                 showAlert("✨ SHINY Pokémon!", "You found a shiny " + newMon.getName() + "!");
             }
 
