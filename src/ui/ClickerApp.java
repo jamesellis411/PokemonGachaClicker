@@ -12,6 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Pokemon;
@@ -26,6 +27,8 @@ public class ClickerApp extends Application {
     private Label balanceLabel;
     private TextArea inventoryArea;
     private ImageView pokemonImage;
+    private Button spinButton;
+    private int selectedGeneration = 1;
 
     @Override
     public void start(Stage stage) {
@@ -52,9 +55,14 @@ public class ClickerApp extends Application {
         clickButton.setStyle("-fx-font-size: 16px; -fx-padding: 10 20 10 20;");
         clickButton.setOnAction(e -> handleClick());
 
-        Button buyButton = new Button("🎁 Spin Capsule (100 Coins)");
-        buyButton.setStyle("-fx-font-size: 16px; -fx-padding: 10 20 10 20;");
-        buyButton.setOnAction(e -> handleBuy());
+        spinButton = new Button();
+        spinButton.setStyle("-fx-font-size: 16px; -fx-padding: 10 20 10 20;");
+        updateSpinButtonLabel();
+        spinButton.setOnAction(e -> handleBuy());
+
+        Button pickCapsuleButton = new Button("🎯 Pick Capsule");
+        pickCapsuleButton.setStyle("-fx-font-size: 16px; -fx-padding: 10 20 10 20;");
+        pickCapsuleButton.setOnAction(e -> openCapsulePicker(stage));
 
         Button shopButton = new Button("🏪 Open Shop");
         shopButton.setStyle("-fx-font-size: 16px; -fx-padding: 10 20 10 20;");
@@ -86,7 +94,8 @@ public class ClickerApp extends Application {
                 title,
                 balanceLabel,
                 clickButton,
-                buyButton,
+                pickCapsuleButton,
+                spinButton,
                 shopButton,
                 pokemonImage,
                 inventoryArea,
@@ -102,22 +111,28 @@ public class ClickerApp extends Application {
 
     private void handleClick() {
         SoundManager.playClick();
-        user.addCoins(user.getClickPower());
+        int coinsEarned = user.getCoinsPerClick();
+        user.addCoins(coinsEarned);
         balanceLabel.setText("Coins: " + user.getBalance());
+    }
+
+    private void updateSpinButtonLabel() {
+        spinButton.setText("🎁 Spin Gen " + selectedGeneration + " Capsule (100 Coins)");
     }
 
     private void handleBuy() {
         if (user.spendCoins(100)) {
             SoundManager.playCapsule();
-            Pokemon newMon = PokemonGenerator.generateRandomPokemon();
+            Pokemon newMon = PokemonGenerator.generateRandomPokemon(selectedGeneration, user.getShinyBoost());
 
             try {
                 // Determine correct image file
+                String baseFileName = newMon.getResourceName();
                 String imageFile = newMon.isShiny()
-                        ? newMon.getName().toLowerCase() + "_shiny.png"
-                        : newMon.getName().toLowerCase() + ".png";
+                        ? baseFileName + "_shiny.png"
+                        : baseFileName + ".png";
 
-                String imagePath = "/images/" + imageFile;
+                String imagePath = "/images/Gen " + selectedGeneration + "/" + imageFile;
                 System.out.println("🖼 Loading sprite: " + imagePath); // debug helper
 
                 Image image = new Image(getClass().getResource(imagePath).toExternalForm());
@@ -158,6 +173,33 @@ public class ClickerApp extends Application {
             sb.append(p).append("\n");
         }
         inventoryArea.setText(sb.isEmpty() ? "No Pokémon yet!" : sb.toString());
+    }
+
+    private void openCapsulePicker(Stage owner) {
+        Stage pickerStage = new Stage();
+        pickerStage.initOwner(owner);
+        pickerStage.initModality(Modality.APPLICATION_MODAL);
+        pickerStage.setTitle("Select Capsule Generation");
+
+        VBox layout = new VBox(10);
+        layout.setAlignment(Pos.CENTER);
+        layout.setPadding(new Insets(20));
+
+        for (int gen = 1; gen <= 9; gen++) {
+            Button genButton = new Button("Gen " + gen);
+            genButton.setMaxWidth(Double.MAX_VALUE);
+            int selectedGen = gen;
+            genButton.setOnAction(e -> {
+                selectedGeneration = selectedGen;
+                updateSpinButtonLabel();
+                pickerStage.close();
+            });
+            layout.getChildren().add(genButton);
+        }
+
+        Scene pickerScene = new Scene(layout, 220, 400);
+        pickerStage.setScene(pickerScene);
+        pickerStage.showAndWait();
     }
 
     private void showAlert(String title, String message) {

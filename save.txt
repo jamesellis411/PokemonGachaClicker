@@ -1,10 +1,15 @@
-VERSION:1.1
+VERSION:1.2
 Ash
 default
+65
 7
-2
 false
 1.0
+1.0
+true
+false
+true
+false
 Abra,Psychic,27,false
 Onix,Rock,5,false
 Pidgey,Flying,26,false
@@ -13,3 +18,5 @@ Gastly,Ghost,31,true
 Gastly,Ghost,19,true
 Pidgey,Flying,17,true
 Pidgey,Flying,48,true
+Magikarp,Water,19,false
+Rapidash,Fire,28,false
