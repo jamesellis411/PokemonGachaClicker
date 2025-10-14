@@ -24,45 +24,114 @@ public class ShopWindow {
         Label coinsLabel = new Label("Your Coins: " + user.getBalance());
         coinsLabel.setStyle("-fx-font-size: 16px;");
 
-        // --- Upgrade 1: Training Gloves ---
-        Button glovesButton = new Button("🧤 Buy Training Gloves (+1 Click Power) - 200 Coins");
-        glovesButton.setStyle("-fx-font-size: 14px;");
-        glovesButton.setOnAction(e -> {
-            if (user.getBalance() >= 200) {
-                user.spendCoins(200);
-                user.increaseClickPower();
-                coinsLabel.setText("Your Coins: " + user.getBalance());
-                onUpgrade.run(); // updates main balance label
-                glovesButton.setDisable(true);
-            } else {
-                coinsLabel.setText("Not enough coins!");
-            }
-        });
+        VBox upgradesBox = new VBox(10);
+        upgradesBox.setAlignment(Pos.CENTER);
 
-        // --- Upgrade 2: Shiny Charm ---
-        Button charmButton = new Button("✨ Buy Shiny Charm (Increase shiny odds) - 500 Coins");
-        charmButton.setStyle("-fx-font-size: 14px;");
-        charmButton.setOnAction(e -> {
-            if (user.getBalance() >= 500 && !user.hasShinyCharm()) {
-                user.spendCoins(500);
-                user.buyShinyCharm();
-                coinsLabel.setText("Your Coins: " + user.getBalance());
-                onUpgrade.run();
-                charmButton.setDisable(true);
-            } else if (user.hasShinyCharm()) {
-                coinsLabel.setText("You already own this!");
-            } else {
-                coinsLabel.setText("Not enough coins!");
-            }
-        });
+        root.getChildren().addAll(
+                title,
+                coinsLabel,
+                upgradesBox
+        );
 
-        // Disable already purchased upgrades
-        if (user.hasShinyCharm()) charmButton.setDisable(true);
+        refreshUpgradeButtons(user, upgradesBox, coinsLabel, onUpgrade);
 
-        root.getChildren().addAll(title, coinsLabel, glovesButton, charmButton);
-
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 420, 360);
         shopStage.setScene(scene);
         shopStage.show();
+    }
+
+    private static void refreshUpgradeButtons(User user,
+                                              VBox container,
+                                              Label coinsLabel,
+                                              Runnable onUpgrade) {
+        container.getChildren().clear();
+
+        // Click Power upgrade chain
+        if (!user.hasTrainingGloves()) {
+            Button glovesButton = new Button("🧤 Buy Training Gloves (+1 Click Power) - 200 Coins");
+            glovesButton.setStyle("-fx-font-size: 14px;");
+            glovesButton.setOnAction(e -> {
+                if (user.spendCoins(200)) {
+                    user.increaseClickPower();
+                    user.markTrainingGlovesOwned();
+                    coinsLabel.setText("Your Coins: " + user.getBalance());
+                    onUpgrade.run();
+                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
+                } else {
+                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
+                }
+            });
+            container.getChildren().add(glovesButton);
+        } else if (!user.hasSuperGloves()) {
+            Button superGlovesButton = new Button("💪 Buy Super Gloves (+5 Click Power) - 1000 Coins");
+            superGlovesButton.setStyle("-fx-font-size: 14px;");
+            superGlovesButton.setOnAction(e -> {
+                if (user.spendCoins(1000)) {
+                    user.buySuperGloves();
+                    coinsLabel.setText("Your Coins: " + user.getBalance());
+                    onUpgrade.run();
+                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
+                } else {
+                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
+                }
+            });
+            container.getChildren().add(superGlovesButton);
+        }
+
+        // Shiny odds upgrades (independent purchases)
+        if (!user.hasShinyCharm()) {
+            Button charmButton = new Button("✨ Buy Shiny Charm (Increase shiny odds) - 500 Coins");
+            charmButton.setStyle("-fx-font-size: 14px;");
+            charmButton.setOnAction(e -> {
+                if (user.spendCoins(500)) {
+                    user.buyShinyCharm();
+                    coinsLabel.setText("Your Coins: " + user.getBalance());
+                    onUpgrade.run();
+                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
+                } else {
+                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
+                }
+            });
+            container.getChildren().add(charmButton);
+        }
+
+        if (!user.hasLuckyIncense()) {
+            Button incenseButton = new Button("🌸 Buy Lucky Incense (Boost shiny odds) - 800 Coins");
+            incenseButton.setStyle("-fx-font-size: 14px;");
+            incenseButton.setOnAction(e -> {
+                if (user.spendCoins(800)) {
+                    user.buyLuckyIncense();
+                    coinsLabel.setText("Your Coins: " + user.getBalance());
+                    onUpgrade.run();
+                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
+                } else {
+                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
+                }
+            });
+            container.getChildren().add(incenseButton);
+        }
+
+        // Coin multiplier upgrade
+        if (!user.hasCoinMagnet()) {
+            Button coinMagnetButton = new Button("🧲 Buy Coin Magnet (+50% coins per click) - 1200 Coins");
+            coinMagnetButton.setStyle("-fx-font-size: 14px;");
+            coinMagnetButton.setOnAction(e -> {
+                if (user.spendCoins(1200)) {
+                    user.buyCoinMagnet();
+                    coinsLabel.setText("Your Coins: " + user.getBalance());
+                    onUpgrade.run();
+                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
+                } else {
+                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
+                }
+            });
+            container.getChildren().add(coinMagnetButton);
+        }
+
+        if (container.getChildren().isEmpty()) {
+            Label allBoughtLabel = new Label("🎉 All upgrades purchased!");
+            allBoughtLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+            container.getChildren().add(allBoughtLabel);
+        }
     }
 }

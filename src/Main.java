@@ -55,13 +55,15 @@ public class Main {
     }
 
     private static void handleClick(User user) {
-        user.addCoins(1);
-        System.out.println("💰 +1 coin! Current balance: " + user.getBalance());
+        int coinsEarned = user.getCoinsPerClick();
+        user.addCoins(coinsEarned);
+        String suffix = coinsEarned == 1 ? " coin" : " coins";
+        System.out.println("💰 +" + coinsEarned + suffix + "! Current balance: " + user.getBalance());
     }
 
     private static void handleBuy(User user) {
         if (user.spendCoins(100)) {
-            Pokemon newMon = PokemonGenerator.generateRandomPokemon();
+            Pokemon newMon = PokemonGenerator.generateRandomPokemon(1, user.getShinyBoost());
             user.addPokemon(newMon);
             System.out.println("🎉 You obtained a " + newMon);
         } else {
@@ -79,7 +81,7 @@ public class Main {
     private static void printCommands() {
         System.out.println("""
             Commands:
-              c     → Click for +1 coin
+              c     → Click for coins (scales with upgrades)
               buy   → Spend 100 coins for a Pokémon
               show  → View your Pokémon collection
               help  → Show this list again
