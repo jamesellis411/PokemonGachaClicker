@@ -95,39 +95,6 @@ public class ShopWindow {
             container.getChildren().add(charmButton);
         }
 
-        if (!user.hasLuckyIncense()) {
-            Button incenseButton = new Button("🌸 Buy Lucky Incense (Boost shiny odds) - 800 Coins");
-            incenseButton.setStyle("-fx-font-size: 14px;");
-            incenseButton.setOnAction(e -> {
-                if (user.spendCoins(800)) {
-                    user.buyLuckyIncense();
-                    coinsLabel.setText("Your Coins: " + user.getBalance());
-                    onUpgrade.run();
-                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
-                } else {
-                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
-                }
-            });
-            container.getChildren().add(incenseButton);
-        }
-
-        // Coin multiplier upgrade
-        if (!user.hasCoinMagnet()) {
-            Button coinMagnetButton = new Button("🧲 Buy Coin Magnet (+50% coins per click) - 1200 Coins");
-            coinMagnetButton.setStyle("-fx-font-size: 14px;");
-            coinMagnetButton.setOnAction(e -> {
-                if (user.spendCoins(1200)) {
-                    user.buyCoinMagnet();
-                    coinsLabel.setText("Your Coins: " + user.getBalance());
-                    onUpgrade.run();
-                    refreshUpgradeButtons(user, container, coinsLabel, onUpgrade);
-                } else {
-                    coinsLabel.setText("Not enough coins! You have: " + user.getBalance());
-                }
-            });
-            container.getChildren().add(coinMagnetButton);
-        }
-
         if (container.getChildren().isEmpty()) {
             Label allBoughtLabel = new Label("🎉 All upgrades purchased!");
             allBoughtLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");

@@ -14,9 +14,7 @@ public class User {
     private double coinMultiplier = 1.0;
     private boolean hasShinyCharm = false;
     private boolean hasTrainingGloves = false;
-    private boolean hasLuckyIncense = false;
     private boolean hasSuperGloves = false;
-    private boolean hasCoinMagnet = false;
 
 
     public User (String username, String passwordHash) {
@@ -89,18 +87,6 @@ public class User {
         hasTrainingGloves = true;
     }
 
-    public boolean hasLuckyIncense() {
-        return hasLuckyIncense;
-    }
-
-    public void buyLuckyIncense() {
-        if (hasLuckyIncense) {
-            return;
-        }
-        hasLuckyIncense = true;
-        shinyBoost += 0.5;
-    }
-
     public boolean hasSuperGloves() {
         return hasSuperGloves;
     }
@@ -111,18 +97,6 @@ public class User {
         }
         hasSuperGloves = true;
         addClickPower(5);
-    }
-
-    public boolean hasCoinMagnet() {
-        return hasCoinMagnet;
-    }
-
-    public void buyCoinMagnet() {
-        if (hasCoinMagnet) {
-            return;
-        }
-        hasCoinMagnet = true;
-        coinMultiplier += 0.5;
     }
 
     public void setShinyBoost(double shinyBoost) {
@@ -141,16 +115,8 @@ public class User {
         this.hasTrainingGloves = hasTrainingGloves;
     }
 
-    public void setHasLuckyIncense(boolean hasLuckyIncense) {
-        this.hasLuckyIncense = hasLuckyIncense;
-    }
-
     public void setHasSuperGloves(boolean hasSuperGloves) {
         this.hasSuperGloves = hasSuperGloves;
-    }
-
-    public void setHasCoinMagnet(boolean hasCoinMagnet) {
-        this.hasCoinMagnet = hasCoinMagnet;
     }
 
     public boolean spendCoins(int amount) {
@@ -173,5 +139,4 @@ public class User {
     }
 
 }
-
 

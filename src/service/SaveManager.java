@@ -8,7 +8,7 @@ import java.util.*;
 public class SaveManager {
 
     private static final String SAVE_FILE = "save.txt";
-    private static final String SAVE_VERSION = "1.2"; // ✨ current save format version
+    private static final String SAVE_VERSION = "1.3"; // ✨ current save format version
 
     // ✅ Save user data
     public static void saveUser(User user) {
@@ -22,9 +22,7 @@ public class SaveManager {
             writer.println(user.getShinyBoost());
             writer.println(user.getCoinMultiplier());
             writer.println(user.hasTrainingGloves());
-            writer.println(user.hasLuckyIncense());
             writer.println(user.hasSuperGloves());
-            writer.println(user.hasCoinMagnet());
 
             for (Pokemon p : user.getInventory()) {
                 writer.println(p.getName() + "," + p.getType() + "," + p.getLevel() + "," + p.isShiny());
@@ -64,22 +62,27 @@ public class SaveManager {
             int clickPower = 1;
             boolean hasShinyCharm = false;
             boolean hasTrainingGloves = false;
-            boolean hasLuckyIncense = false;
             boolean hasSuperGloves = false;
-            boolean hasCoinMagnet = false;
             double shinyBoost = 1.0;
             double coinMultiplier = 1.0;
 
             // 🧠 Version-based parsing
-            if (version.equals("1.2")) {
+            if (version.equals("1.3")) {
                 clickPower = Integer.parseInt(reader.readLine());
                 hasShinyCharm = Boolean.parseBoolean(reader.readLine());
                 shinyBoost = Double.parseDouble(reader.readLine());
                 coinMultiplier = Double.parseDouble(reader.readLine());
                 hasTrainingGloves = Boolean.parseBoolean(reader.readLine());
-                hasLuckyIncense = Boolean.parseBoolean(reader.readLine());
                 hasSuperGloves = Boolean.parseBoolean(reader.readLine());
-                hasCoinMagnet = Boolean.parseBoolean(reader.readLine());
+            } else if (version.equals("1.2")) {
+                clickPower = Integer.parseInt(reader.readLine());
+                hasShinyCharm = Boolean.parseBoolean(reader.readLine());
+                shinyBoost = Double.parseDouble(reader.readLine());
+                coinMultiplier = Double.parseDouble(reader.readLine());
+                hasTrainingGloves = Boolean.parseBoolean(reader.readLine());
+                reader.readLine(); // discard deprecated Lucky Incense flag
+                hasSuperGloves = Boolean.parseBoolean(reader.readLine());
+                reader.readLine(); // discard deprecated Coin Magnet flag
             } else if (version.equals("1.1")) {
                 clickPower = Integer.parseInt(reader.readLine());
                 hasShinyCharm = Boolean.parseBoolean(reader.readLine());
@@ -92,13 +95,11 @@ public class SaveManager {
 
             user.setHasShinyCharm(hasShinyCharm);
             user.setHasTrainingGloves(hasTrainingGloves);
-            user.setHasLuckyIncense(hasLuckyIncense);
             user.setHasSuperGloves(hasSuperGloves);
-            user.setHasCoinMagnet(hasCoinMagnet);
             user.setShinyBoost(shinyBoost);
             user.setCoinMultiplier(coinMultiplier);
 
-            if (!"1.2".equals(version) && clickPower > 1) {
+            if ((version.equals("1.0") || version.equals("1.1")) && clickPower > 1) {
                 user.setHasTrainingGloves(true);
             }
 
