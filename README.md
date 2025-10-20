@@ -23,23 +23,27 @@ PokéGacha brings that joy to life as a clicker game — earn coins, spin for Po
 
 ---
 
+## 🎮 Current Features
+
+- A **Capsule Shop** that lets players buy upgrades to enhance their gachapon spins.
+- A **Capsule Selection Menu** that lets players choose which generation of pokemon they would like to spin for.
+- **Full Generation 1 Pokémon sprites**, including shiny varients.
+- **Sound effects** for coin drops, spins, and capsule reveals.
+- Persistent save data for progress and collections.
+
+---
+
 ## 🧭 Coming Soon
 
 New features are in development to make **PokéGacha** feel even more like a real gachapon machine experience!  
 
-### 🏪 Capsule Shop & Upgrades
-A new **capsule shop** will let players buy upgrades to enhance their gachapon spins:
-- Training Gloves → earn more coins per click  
-- Lucky Charm → increase shiny Pokémon odds  
+### 🏪 Capsule Shop Upgrades
+Additional upgrades to enhance user gachapon spins: 
 - Pokédex Plus → unlock new capsule designs and viewing modes  
 - Premium Capsules → higher rarity Pokémon chances  
 
 ### 🧩 Pokémon Sprites
-Every Pokémon you collect will appear as a **capsule image** when pulled from the machine.  
-Shiny variants will include ✨ special color overlays or glowing effects.
-
-### 🔊 Sound Effects
-Authentic **gachapon-inspired sounds** for clicks, capsule drops, and Pokémon reveals — bringing the toy machine feel to life!
+Next updates will add sprites for **Generations 2-9**, including shiny variants -- expanding the collection far beyond Kanto!
 
 ### 📘 Pokédex View
 A sleek **Pokédex-style capsule collection** where you can view all your caught Pokémon:
